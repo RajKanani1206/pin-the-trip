@@ -10,9 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Import all Routes Here
-const auth = require("./routes/auth");
+const user = require("./routes/user");
 
 //Router Middleware
-app.use("/api", auth);
+app.use("/api", user);
 
 module.exports = app;
