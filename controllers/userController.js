@@ -19,3 +19,24 @@ exports.register = BigPromise(async (req, res, next) => {
 
   cookieToken(user, res);
 });
+
+exports.login = BigPromise(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check for presence of email and password
+  if (!email || !password) {
+    return next(CustomError("Email and Password are required", 400));
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(CustomError("Email or Password does not match or exist", 400));
+  }
+
+  const isPasswordCorrect = await user.isValidatedPassword(password);
+  if (!isPasswordCorrect) {
+    return next(CustomError("Password does not match or exist", 400));
+  }
+
+  cookieToken(user, res);
+});
