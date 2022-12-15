@@ -7,7 +7,9 @@ const Home = () => {
   return (
     <Container>
       <div className="row">
-        <img src={HomeBanner} alt="" className="my-5 py-md-5 col-md-6" />
+        <div className="my-5 col-md-6">
+          <img src={HomeBanner} alt="Home-Banner" className="ms-md-4 rounded-4 w-100 banner-img" />
+        </div>
         <div className="col-md-6 text-center align-self-center">
           <h1 className="banner-text fw-bold fst-italic">
             Pin Your Trip <br /> With Us.
