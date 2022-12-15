@@ -9,7 +9,7 @@ exports.register = BigPromise(async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 
   if (!firstName || !lastName || !email || !password) {
-    return next(CustomError("First Name, Last Name, Email and Password are required", 400));
+    return next(new CustomError("First Name, Last Name, Email and Password are required", 400));
   }
 
   const user = await User.create({
@@ -27,17 +27,17 @@ exports.login = BigPromise(async (req, res, next) => {
 
   // Check for presence of email and password
   if (!email || !password) {
-    return next(CustomError("Email and Password are required", 400));
+    return next(new CustomError("Email and Password are required", 400));
   }
 
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
-    return next(CustomError("Email or Password does not match or exist", 400));
+    return next(new CustomError("Email or Password does not match or exist", 400));
   }
 
   const isPasswordCorrect = await user.isValidatedPassword(password);
   if (!isPasswordCorrect) {
-    return next(CustomError("Password does not match or exist", 400));
+    return next(new CustomError("Password does not match or exist", 400));
   }
 
   cookieToken(user, res);
@@ -117,4 +117,13 @@ exports.passwordReset = BigPromise(async (req, res, next) => {
   await user.save();
 
   cookieToken(user, res);
+});
+
+exports.getLoggedInUserDetails = BigPromise(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
 });
