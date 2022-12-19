@@ -26,3 +26,15 @@ exports.createPin = BigPromise(async (req, res, next) => {
     newPin,
   });
 });
+
+exports.getAllPins = BigPromise(async (req, res, next) => {
+  try {
+    const pins = await Pin.find();
+    res.status(200).json({
+      success: true,
+      pins,
+    });
+  } catch (error) {
+    new CustomError("Something went wrong", 400);
+  }
+});
