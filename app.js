@@ -11,8 +11,10 @@ app.use(cookieParser());
 
 //Import all Routes Here
 const user = require("./routes/user");
+const pin = require("./routes/pin");
 
 //Router Middleware
 app.use("/api", user);
+app.use("/api", pin);
 
 module.exports = app;
