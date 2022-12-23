@@ -18,6 +18,35 @@
 }
 
 .leaflet-container {
-  width: 80vw;
+  width: 75vw;
   height: 80vh;
+  box-shadow: 0 20px 80px 0 rgb(0 0 0 / 45%);
+}
+
+.card {
+  height: 250px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+label {
+  width: max-content;
+  color: tomato;
+  font-size: 13px;
+  border-bottom: 0.5px solid tomato;
+  margin: 3px 0;
+}
+
+.desc {
+  font-size: 14px;
+}
+
+.username {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
 }
