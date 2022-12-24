@@ -3,17 +3,16 @@ const BigPromise = require("../middlewares/bigPromise");
 const CustomError = require("../utils/customError");
 
 exports.createPin = BigPromise(async (req, res, next) => {
-  const { firstName, lastName, title, desc, rating, lat, long } = req.body;
+  const { username, title, desc, rating, lat, long } = req.body;
 
-  if (!firstName || !lastName || !title || !desc || !rating || !lat || !long) {
+  if (!username || !title || !desc || !rating || !lat || !long) {
     return next(
       new CustomError("First Name, Last Name, Title, Description, Rating, Latitude and Longitude are required", 400)
     );
   }
 
   const newPin = await Pin.create({
-    firstName,
-    lastName,
+    username,
     title,
     desc,
     rating,

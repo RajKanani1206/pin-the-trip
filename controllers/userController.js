@@ -6,15 +6,14 @@ const mailHelper = require("../utils/emailHelper");
 const crypto = require("crypto");
 
 exports.register = BigPromise(async (req, res, next) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  if (!firstName || !lastName || !email || !password) {
-    return next(new CustomError("First Name, Last Name, Email and Password are required", 400));
+  if (!username || !email || !password) {
+    return next(new CustomError("Username, Email and Password are required", 400));
   }
 
   const user = await User.create({
-    firstName,
-    lastName,
+    username,
     email,
     password,
   });
