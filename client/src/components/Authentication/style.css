@@ -1,0 +1,28 @@
+.input-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.input-field:focus-visible {
+  border: 2px solid #0394cb !important;
+  outline: none;
+}
+
+.input-field:hover {
+  background-color: #edf1f7;
+}
+
+.input-error {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.input-button {
+  background-color: #0394cb;
+}
+
+.input-button:disabled {
+  cursor: no-drop;
+  background-color: #edf1f7;
+  color: rgba(197, 206, 224, 0.48) !important;
+}

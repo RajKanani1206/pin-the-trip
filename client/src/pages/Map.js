@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../components/Layout/Footer";
+import Header from "../components/Layout/Header";
 import * as L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, useMapEvent } from "react-leaflet";
 import axios from "axios";
