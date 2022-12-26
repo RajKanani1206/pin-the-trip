@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import "./style.css";
 
 const Header = () => {
