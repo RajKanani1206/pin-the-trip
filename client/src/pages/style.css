@@ -46,7 +46,7 @@ label {
 .date {
   font-size: 12px;
 }
-
+/* 
 .Stars {
   --percent: calc(2 / 5 * 100%);
 
@@ -90,4 +90,4 @@ textarea::placeholder {
   border-radius: 5px;
   color: #fff;
   background-color: tomato;
-}
+} */

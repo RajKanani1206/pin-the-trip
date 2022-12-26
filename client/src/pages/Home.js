@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import HomeBanner from "../assets/home.jpg";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "../components/Layout/Footer";
+import Header from "../components/Layout/Header";
 import "./style.css";
 
 const Home = () => {
