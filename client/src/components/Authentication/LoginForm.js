@@ -2,6 +2,9 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./style.css";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
@@ -9,6 +12,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -16,8 +21,17 @@ const LoginForm = () => {
         password: "",
       }}
       validationSchema={LoginSchema}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={async (values) => {
+        try {
+          const res = await axios.post("/login", values);
+          if (res.data.success) {
+            navigate("/map");
+            toast.success("User logged in successfully");
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Something went wrong");
+        }
       }}
     >
       {({ errors, touched }) => (

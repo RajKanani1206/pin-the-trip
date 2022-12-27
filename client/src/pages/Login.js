@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import LoginForm from "../components/Authentication/LoginForm";
+import "./style.css";
 
 const Login = () => {
   return (
