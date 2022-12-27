@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Map from "./pages/Map";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/map" element={<Map />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 };

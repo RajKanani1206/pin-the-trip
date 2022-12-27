@@ -1,6 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
+import axios from "axios";
+import { omit } from "lodash";
+import "./style.css";
+import { toast } from "react-toastify";
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().min(2, "Too Short!").max(20, "Too Long!").required("Username is Required"),
@@ -21,8 +25,18 @@ const RegisterForm = () => {
         confirmPassword: "",
       }}
       validationSchema={RegisterSchema}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={async (values, { resetForm }) => {
+        const input = omit(values, ["confirmPassword"]);
+        try {
+          const res = await axios.post("/register", input);
+          if (res.data.success) {
+            resetForm({ values: "" });
+            toast.success("User registered successfully");
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error("Something went wrong");
+        }
       }}
     >
       {({ errors, touched }) => (
