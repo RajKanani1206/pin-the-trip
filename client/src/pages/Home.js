@@ -1,11 +1,15 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import HomeBanner from "../assets/home.jpg";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/Header";
+import useUser from "../hooks/useUser";
 import "./style.css";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const { user } = useUser();
   return (
     <>
       <div className="main">
@@ -19,6 +23,11 @@ const Home = () => {
               <h1 className="banner-text fw-bold fst-italic">
                 Pin Your Trip <br /> With Us.
               </h1>
+              {user?._id && (
+                <Button variant="plain" className="auth-btn text-white mt-4" onClick={() => navigate("/map")}>
+                  View Map
+                </Button>
+              )}
             </div>
           </div>
         </Container>

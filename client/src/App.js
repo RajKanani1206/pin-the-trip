@@ -5,10 +5,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Map from "./pages/Map";
 import { ToastContainer } from "react-toastify";
+import { UserContextProvider } from "./context/UserContextProvider";
 
 const App = () => {
   return (
-    <>
+    <UserContextProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -16,7 +17,7 @@ const App = () => {
         <Route path="/map" element={<Map />} />
       </Routes>
       <ToastContainer />
-    </>
+    </UserContextProvider>
   );
 };
 
