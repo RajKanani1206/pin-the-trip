@@ -5,6 +5,7 @@ import "./style.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useUser from "../../hooks/useUser";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
@@ -13,6 +14,7 @@ const LoginSchema = Yup.object().shape({
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   return (
     <Formik
@@ -25,6 +27,7 @@ const LoginForm = () => {
         try {
           const res = await axios.post("/login", values);
           if (res.data.success) {
+            setUser(res.data.user);
             navigate("/map");
             toast.success("User logged in successfully");
           }
