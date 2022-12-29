@@ -6,9 +6,7 @@ exports.createPin = BigPromise(async (req, res, next) => {
   const { username, title, desc, rating, lat, long } = req.body;
 
   if (!username || !title || !desc || !rating || !lat || !long) {
-    return next(
-      new CustomError("First Name, Last Name, Title, Description, Rating, Latitude and Longitude are required", 400)
-    );
+    return next(new CustomError("Username, Title, Description, Rating, Latitude and Longitude are required", 400));
   }
 
   const newPin = await Pin.create({
