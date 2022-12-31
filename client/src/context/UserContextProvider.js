@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
         const res = await axios.get("/user");
         setUser(res.data.user);
       } catch (error) {
-        console.log();
+        console.log("");
       }
     };
     userDetails();

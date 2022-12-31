@@ -23,6 +23,10 @@
   border-bottom: 1px solid gray;
 }
 
+.pin-input:focus-visible {
+  outline: none;
+}
+
 .pin-input::placeholder {
   font-size: 12px;
   color: rgb(172, 169, 169);
@@ -34,6 +38,11 @@
   border-radius: 5px;
   color: #fff;
   background-color: tomato;
+}
+
+.add-pin-btn:disabled {
+  cursor: no-drop;
+  opacity: 0.7;
 }
 
 .star-button {
