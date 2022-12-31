@@ -10,14 +10,10 @@ const pinSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Please provide a title"],
-      minLength: [3, "Title should be minimum of 3 characters"],
-      maxLength: [20, "Title should be under 20 characters"],
     },
     desc: {
       type: String,
       required: [true, "Please provide a description"],
-      minLength: [3, "Description should be minimum of 3 characters"],
-      maxLength: [20, "Description should be under 20 characters"],
     },
     rating: {
       type: Number,
