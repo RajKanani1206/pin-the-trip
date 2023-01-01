@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Map from "./pages/Map";
 import { ToastContainer } from "react-toastify";
 import { UserContextProvider } from "./context/UserContextProvider";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/map" element={<Map />} />
       </Routes>
       <ToastContainer />
