@@ -32,7 +32,11 @@ const PinDetails = ({ pins }) => {
                 <div>
                   {[...Array(5)].map((star, index) => {
                     index += 1;
-                    return <span className={`fs-1 ${index <= p.rating ? "on" : "off"}`}>&#9733;</span>;
+                    return (
+                      <span className={`fs-1 ${index <= p.rating ? "on" : "off"}`} key={index}>
+                        &#9733;
+                      </span>
+                    );
                   })}
                 </div>
                 <label className="pin-details-heading">Information</label>
