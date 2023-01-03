@@ -18,7 +18,10 @@ exports.register = BigPromise(async (req, res, next) => {
     password,
   });
 
-  cookieToken(user, res);
+  res.status(200).json({
+    success: true,
+    message: "User Registered Successfully",
+  });
 });
 
 exports.login = BigPromise(async (req, res, next) => {
@@ -115,7 +118,10 @@ exports.passwordReset = BigPromise(async (req, res, next) => {
 
   await user.save();
 
-  cookieToken(user, res);
+  res.status(200).json({
+    success: true,
+    message: "Password Changed Successfully",
+  });
 });
 
 exports.getLoggedInUserDetails = BigPromise(async (req, res, next) => {
