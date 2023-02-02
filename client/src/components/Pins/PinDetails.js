@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import * as L from "leaflet";
 import { Marker, Popup } from "react-leaflet";
 import useUser from "../../hooks/useUser";
@@ -43,7 +44,7 @@ const PinDetails = ({ pins }) => {
                 <span className="fs-14">
                   Created by <b>{p.username}</b>
                 </span>
-                <span className="fs-12">{p.createdAt}</span>
+                <span className="fs-12">{moment(p.createdAt).fromNow()}</span>
               </div>
             </Popup>
           </Marker>
