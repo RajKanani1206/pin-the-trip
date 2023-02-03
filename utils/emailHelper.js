@@ -2,19 +2,18 @@ const nodemailer = require("nodemailer");
 
 const mailHelper = async (options) => {
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
+    service: "gmail",
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
     },
   });
 
   const message = {
-    from: "rajkanani1206@gmail.com",
+    from: process.env.EMAIL,
     to: options.email,
     subject: options.subject,
-    text: options.message,
+    html: "<h1>Congrats</h1>",
   };
 
   await transporter.sendMail(message);
