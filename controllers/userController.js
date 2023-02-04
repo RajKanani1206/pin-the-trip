@@ -12,16 +12,42 @@ exports.register = BigPromise(async (req, res, next) => {
     return next(new CustomError("Username, Email and Password are required", 400));
   }
 
-  const user = await User.create({
-    username,
-    email,
-    password,
+  let user = await User.findOne({ email });
+
+  if (!!user?.isVerified) {
+    return next(new CustomError("User already registered"));
+  }
+
+  if (!user) {
+    user = await User.create({
+      username,
+      email,
+      password,
+    });
+  } else if (!!user?.isVerified) {
+    return next(new CustomError("User already registered"));
+  }
+
+  const otp = user.getEmailVerificationToken();
+  await user.save({
+    validateBeforeSave: false,
   });
 
-  res.status(200).json({
-    success: true,
-    message: "User Registered Successfully",
-  });
+  try {
+    await mailHelper({
+      email: email,
+      subject: "Pin The Trip - Email",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Email sent successfully",
+    });
+  } catch (error) {
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpiry = undefined;
+    await user.save({ validateBeforeSave: false });
+  }
 });
 
 exports.login = BigPromise(async (req, res, next) => {
