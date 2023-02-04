@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema({
     minLength: [6, "Password should be atleast 6 characters"],
     select: false,
   },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  emailVerificationToken: String,
+  emailVerificationExpiry: Date,
   forgotPasswordToken: String,
   forgotPasswordExpiry: Date,
   createdAt: {
@@ -59,6 +65,16 @@ userSchema.methods.getForgotPasswordToken = function () {
   this.forgotPasswordExpiry = Date.now() + 20 * 60 * 1000;
 
   return forgotToken;
+};
+
+userSchema.methods.getEmailVerificationToken = function () {
+  const otp = crypto.randomInt(1000, 9999);
+  const verificationToken = `${this.email}.${otp}`;
+
+  this.emailVerificationToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
+  this.emailVerificationExpiry = Date.now() + 20 * 60 * 1000;
+
+  return otp;
 };
 
 module.exports = mongoose.model("User", userSchema);
