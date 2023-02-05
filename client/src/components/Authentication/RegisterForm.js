@@ -5,6 +5,7 @@ import axios from "axios";
 import { omit } from "lodash";
 import "./style.css";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().min(2, "Too Short!").max(20, "Too Long!").required("Username is Required"),
@@ -16,6 +17,8 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -31,7 +34,8 @@ const RegisterForm = () => {
           const res = await axios.post("/register", input);
           if (res.data.success) {
             resetForm({ values: "" });
-            toast.success("User registered successfully");
+            toast.success("Email sent successfully");
+            navigate(`/verify?userId=${res.data.id}`);
           }
         } catch (error) {
           console.log(error);
