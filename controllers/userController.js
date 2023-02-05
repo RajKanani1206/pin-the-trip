@@ -130,9 +130,12 @@ exports.forgotPassword = BigPromise(async (req, res, next) => {
     validateBeforeSave: false,
   });
 
-  const myUrl = `${req.protocol}://${req.get("host")}/password/reset/${forgotToken}`;
+  // Change url after deployment
+  const myUrl = `${req.protocol}://localhost:3000/password/reset/${forgotToken}`;
 
-  const message = `Copy paste this link in your URL and hit enter \n\n ${myUrl}`;
+  const message = `<p>Respected Sir/Madam,</p><h3>A request has been received to change the password for your Pin The Trip account.</h3>
+  <a href=${myUrl} target="_blank">Reset Password</a>
+  <p>Thank You.</p>`;
 
   try {
     await mailHelper({

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import ResetPasswordForm from "../components/Authentication/ResetPasswordForm";
 import "./style.css";
@@ -13,11 +12,6 @@ const ResetPassword = () => {
           <h3>Reset Password</h3>
         </div>
         <ResetPasswordForm />
-        <div className="text-center mb-4">
-          <Link to="/login" className="text-secondary">
-            Back to Login
-          </Link>
-        </div>
       </div>
     </div>
   );
