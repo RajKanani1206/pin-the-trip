@@ -69,7 +69,7 @@ userSchema.methods.getForgotPasswordToken = function () {
 
 userSchema.methods.getEmailVerificationToken = function () {
   const otp = crypto.randomInt(1000, 9999);
-  const verificationToken = `${this.email}.${otp}`;
+  const verificationToken = `${this._id}.${otp}`;
 
   this.emailVerificationToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
   this.emailVerificationExpiry = Date.now() + 20 * 60 * 1000;

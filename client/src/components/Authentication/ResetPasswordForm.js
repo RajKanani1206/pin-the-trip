@@ -4,7 +4,7 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import "./style.css";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ResetPasswordSchema = Yup.object().shape({
   password: Yup.string().min(6, "Too Short!").max(20, "Too Long!").required("Password is Required"),
@@ -14,6 +14,7 @@ const ResetPasswordSchema = Yup.object().shape({
 });
 
 const ResetPasswordForm = () => {
+  const navigate = useNavigate();
   const { token } = useParams();
   return (
     <Formik
@@ -28,6 +29,7 @@ const ResetPasswordForm = () => {
           if (res.data.success) {
             resetForm({ values: "" });
             toast.success("Password updated successfully");
+            navigate("/login");
           }
         } catch (error) {
           console.log(error);

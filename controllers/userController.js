@@ -29,6 +29,8 @@ exports.register = BigPromise(async (req, res, next) => {
   }
 
   const otp = user.getEmailVerificationToken();
+  user.username = username;
+  user.password = password;
   await user.save({
     validateBeforeSave: false,
   });
@@ -36,18 +38,48 @@ exports.register = BigPromise(async (req, res, next) => {
   try {
     await mailHelper({
       email: email,
-      subject: "Pin The Trip - Email",
+      subject: "Pin The Trip - Verify Your Account",
+      message: `<p>Respected Sir/Madam,</p><h3>Please use the following OTP <span style="color:Tomato;">${otp}</span> to verify your Email.</h3><p>Thank You.</p>`,
     });
 
     res.status(200).json({
       success: true,
       message: "Email sent successfully",
+      id: user._id,
     });
   } catch (error) {
     user.emailVerificationToken = undefined;
     user.emailVerificationExpiry = undefined;
     await user.save({ validateBeforeSave: false });
   }
+});
+
+exports.verifyEmail = BigPromise(async (req, res, next) => {
+  const { otp } = req.body;
+  const userId = req.query.userId;
+  const verificationToken = `${userId}.${otp}`;
+
+  const encrpytToken = crypto.createHash("sha256").update(verificationToken).digest("hex");
+
+  const user = await User.findOne({
+    emailVerificationToken: encrpytToken,
+    emailVerificationExpiry: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new CustomError("Token is invalid or expired"), 400);
+  }
+
+  user.isVerified = true;
+  user.emailVerificationToken = undefined;
+  user.emailVerificationExpiry = undefined;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "User Registered Successfully",
+  });
 });
 
 exports.login = BigPromise(async (req, res, next) => {
@@ -98,9 +130,12 @@ exports.forgotPassword = BigPromise(async (req, res, next) => {
     validateBeforeSave: false,
   });
 
-  const myUrl = `${req.protocol}://${req.get("host")}/password/reset/${forgotToken}`;
+  // Change url after deployment
+  const myUrl = `${req.protocol}://localhost:3000/password/reset/${forgotToken}`;
 
-  const message = `Copy paste this link in your URL and hit enter \n\n ${myUrl}`;
+  const message = `<p>Respected Sir/Madam,</p><h3>A request has been received to change the password for your Pin The Trip account.</h3>
+  <a href=${myUrl} target="_blank">Reset Password</a>
+  <p>Thank You.</p>`;
 
   try {
     await mailHelper({
