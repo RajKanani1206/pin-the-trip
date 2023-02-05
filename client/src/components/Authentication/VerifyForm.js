@@ -37,8 +37,8 @@ const VerifyForm = () => {
           setToken(value);
         }}
         style={{ padding: "10px" }}
-        inputStyle={{ borderColor: "red" }}
-        inputFocusStyle={{ borderColor: "blue" }}
+        inputStyle={{ height: "45px", width: "45px", borderRadius: "5px" }}
+        inputFocusStyle={{ borderColor: "#0394cb" }}
       />
       <p className="my-4">Didn't recieve OTP? Resend OTP</p>
       <button
