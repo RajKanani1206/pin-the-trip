@@ -8,10 +8,12 @@ const {
   forgotPassword,
   passwordReset,
   getLoggedInUserDetails,
+  verifyEmail,
 } = require("../controllers/userController");
 const { isLoggedIn } = require("../middlewares/user");
 
 router.route("/register").post(register);
+router.route("/verifyEmail").post(verifyEmail);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
 router.route("/forgotPassword").post(forgotPassword);

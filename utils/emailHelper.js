@@ -13,7 +13,7 @@ const mailHelper = async (options) => {
     from: process.env.EMAIL,
     to: options.email,
     subject: options.subject,
-    html: "<h1>Congrats</h1>",
+    html: options.message,
   };
 
   await transporter.sendMail(message);
