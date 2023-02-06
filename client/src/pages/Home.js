@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import HomeBanner from "../assets/home.jpg";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/Header";
+import Info from "../components/Layout/Info";
 import useUser from "../hooks/useUser";
 import "./style.css";
 
@@ -30,6 +31,7 @@ const Home = () => {
               )}
             </div>
           </div>
+          <Info />
         </Container>
       </div>
       <Footer />

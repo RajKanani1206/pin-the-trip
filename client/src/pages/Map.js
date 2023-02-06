@@ -5,6 +5,8 @@ import { MapContainer, Popup, TileLayer, useMapEvent } from "react-leaflet";
 import axios from "axios";
 import CreatePin from "../components/Pins/CreatePin";
 import PinDetails from "../components/Pins/PinDetails";
+import Info from "../components/Layout/Info";
+import { Container } from "react-bootstrap";
 
 const Map = () => {
   const [pins, setPins] = useState([]);
@@ -49,6 +51,11 @@ const Map = () => {
               </Popup>
             )}
           </MapContainer>
+        </div>
+        <div className="pt-1">
+          <Container>
+            <Info />
+          </Container>
         </div>
       </div>
       <Footer />
