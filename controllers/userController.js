@@ -14,10 +14,6 @@ exports.register = BigPromise(async (req, res, next) => {
 
   let user = await User.findOne({ email });
 
-  if (!!user?.isVerified) {
-    return next(new CustomError("User already registered"));
-  }
-
   if (!user) {
     user = await User.create({
       username,
@@ -80,6 +76,44 @@ exports.verifyEmail = BigPromise(async (req, res, next) => {
     success: true,
     message: "User Registered Successfully",
   });
+});
+
+exports.resendOtp = BigPromise(async (req, res, next) => {
+  const userId = req.query.userId;
+
+  const user = await User.findOne({
+    _id: userId,
+  });
+
+  if (!user) {
+    return next(new CustomError("User Info not Found"), 400);
+  } else if (!!user?.isVerified) {
+    return next(new CustomError("User already registered"));
+  }
+
+  const otp = user.getEmailVerificationToken();
+  await user.save({
+    validateBeforeSave: false,
+  });
+
+  try {
+    await mailHelper({
+      email: user.email,
+      subject: "Pin The Trip - Verify Your Account",
+      message: `<p>Respected Sir/Madam,</p><h3>Please use the following OTP <span style="color:Tomato;">${otp}</span> to verify your Email.</h3><p>Thank You.</p>`,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Email sent successfully",
+      id: user._id,
+      otp,
+    });
+  } catch (error) {
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpiry = undefined;
+    await user.save({ validateBeforeSave: false });
+  }
 });
 
 exports.login = BigPromise(async (req, res, next) => {
