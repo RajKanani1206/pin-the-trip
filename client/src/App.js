@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Verify from "./pages/Verify";
 import { AuthorizeUser } from "./middleware/auth";
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             </AuthorizeUser>
           }
         />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
       <ToastContainer />
     </UserContextProvider>
