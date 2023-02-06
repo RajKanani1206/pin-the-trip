@@ -95,6 +95,10 @@ exports.login = BigPromise(async (req, res, next) => {
     return next(new CustomError("Email or Password does not match or exist", 400));
   }
 
+  if (!user.isVerified) {
+    return next(new CustomError("User Not Verified", 400));
+  }
+
   const isPasswordCorrect = await user.isValidatedPassword(password);
   if (!isPasswordCorrect) {
     return next(new CustomError("Password does not match or exist", 400));
