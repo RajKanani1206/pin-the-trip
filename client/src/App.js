@@ -9,6 +9,7 @@ import { UserContextProvider } from "./context/UserContextProvider";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Verify from "./pages/Verify";
+import { AuthorizeUser } from "./middleware/auth";
 
 const App = () => {
   return (
@@ -20,7 +21,14 @@ const App = () => {
         <Route path="/verify" element={<Verify />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/password/reset/:token" element={<ResetPassword />} />
-        <Route path="/map" element={<Map />} />
+        <Route
+          path="/map"
+          element={
+            <AuthorizeUser>
+              <Map />
+            </AuthorizeUser>
+          }
+        />
       </Routes>
       <ToastContainer />
     </UserContextProvider>
