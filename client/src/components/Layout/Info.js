@@ -11,7 +11,7 @@ const Info = () => {
           To create a pin, Click on the location where you would like to create a pin and a popup will appear. Fill in
           the details and click "Add Pin".
         </p>
-        <img src={CreatePin} alt="Create Pin" className="w-100" />
+        <img src={CreatePin} alt="Create Pin" className="w-100 rounded-4" />
       </div>
       <div className="col-md-6 text-center mt-5 mt-md-0">
         <h3 className="info-heading fst-italic fw-bold">View a Pin</h3>
@@ -19,7 +19,7 @@ const Info = () => {
           To view a pin, Click on the pin for which you would like to view details for and a popup will appear as shown
           below with all the details.
         </p>
-        <img src={ViewPin} alt="View Pin" className="w-100" />
+        <img src={ViewPin} alt="View Pin" className="w-100 rounded-4" />
       </div>
     </div>
   );
