@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./style.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import DotLoader from "react-spinners/DotLoader";
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
 });
 
 const ForgotPasswordForm = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <Formik
       initialValues={{
@@ -18,13 +20,16 @@ const ForgotPasswordForm = () => {
       validationSchema={ForgotPasswordSchema}
       onSubmit={async (values, { resetForm }) => {
         try {
+          setLoading(true);
           const res = await axios.post("/forgotPassword", values);
           if (res.data.success) {
             resetForm({ values: "" });
+            setLoading(false);
             toast.success(res.data.message);
           }
         } catch (error) {
           console.log(error);
+          setLoading(false);
           toast.error("Something went wrong");
         }
       }}
@@ -42,9 +47,9 @@ const ForgotPasswordForm = () => {
           <button
             type="submit"
             className="w-100 mt-4 p-2 border rounded text-white input-button"
-            disabled={errors.email}
+            disabled={errors.email || loading}
           >
-            Submit
+            {loading ? <DotLoader loading={loading} size={18} color="#0394cb" /> : `Submit`}
           </button>
         </Form>
       )}
