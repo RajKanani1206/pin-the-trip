@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./style.css";
@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
+import DotLoader from "react-spinners/DotLoader";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
@@ -15,6 +16,7 @@ const LoginSchema = Yup.object().shape({
 const LoginForm = () => {
   const navigate = useNavigate();
   const { setUser } = useUser();
+  const [loading, setLoading] = useState(false);
 
   return (
     <Formik
@@ -25,14 +27,17 @@ const LoginForm = () => {
       validationSchema={LoginSchema}
       onSubmit={async (values) => {
         try {
+          setLoading(true);
           const res = await axios.post("/login", values);
           if (res.data.success) {
             setUser(res.data.user);
+            setLoading(false);
             navigate("/map");
             toast.success("User logged in successfully");
           }
         } catch (error) {
           console.log(error);
+          setLoading(false);
           toast.error("Something went wrong");
         }
       }}
@@ -60,9 +65,9 @@ const LoginForm = () => {
           <button
             type="submit"
             className="w-100 mt-4 p-2 border rounded text-white input-button"
-            disabled={errors.email || errors.password}
+            disabled={errors.email || errors.password || loading}
           >
-            SIGN IN
+            {loading ? <DotLoader loading={loading} size={18} color="#0394cb" /> : `SIGN IN`}
           </button>
         </Form>
       )}
