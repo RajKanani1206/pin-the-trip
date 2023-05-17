@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { BASE_URL } from "../helper/helper";
 
 const UserContext = createContext();
 
@@ -9,7 +10,7 @@ export const UserContextProvider = ({ children }) => {
   useEffect(() => {
     const userDetails = async () => {
       try {
-        const res = await axios.get("/user");
+        const res = await axios.get(`${BASE_URL}/user`);
         setUser(res.data.user);
       } catch (error) {
         console.log("");

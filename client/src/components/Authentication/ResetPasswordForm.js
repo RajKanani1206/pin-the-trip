@@ -6,6 +6,7 @@ import "./style.css";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import DotLoader from "react-spinners/DotLoader";
+import { BASE_URL } from "../../helper/helper";
 
 const ResetPasswordSchema = Yup.object().shape({
   password: Yup.string().min(6, "Too Short!").max(20, "Too Long!").required("Password is Required"),
@@ -28,7 +29,7 @@ const ResetPasswordForm = () => {
       onSubmit={async (values, { resetForm }) => {
         try {
           setLoading(true);
-          const res = await axios.post(`/password/reset/${token}`, values);
+          const res = await axios.post(`${BASE_URL}/password/reset/${token}`, values);
           if (res.data.success) {
             resetForm({ values: "" });
             setLoading(false);

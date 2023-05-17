@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import useUser from "../../hooks/useUser";
 import Rating from "./Rating";
+import { BASE_URL } from "../../helper/helper";
 
 const CreatePin = ({ position, pins, setPins, setPopup }) => {
   const { user } = useUser();
@@ -21,7 +22,7 @@ const CreatePin = ({ position, pins, setPins, setPopup }) => {
     };
 
     try {
-      const res = await axios.post("/createPin", newPin);
+      const res = await axios.post(`${BASE_URL}/createPin`, newPin);
       setPins([...pins, res.data.newPin]);
       setPopup(false);
     } catch (error) {

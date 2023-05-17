@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import useUser from "../../hooks/useUser";
 import "./style.css";
+import { BASE_URL } from "../../helper/helper";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Header = () => {
 
   const handleClick = async () => {
     try {
-      const res = await axios.get("/logout");
+      const res = await axios.get(`${BASE_URL}/logout`);
       if (res.data.success) {
         setUser({});
         navigate("/");

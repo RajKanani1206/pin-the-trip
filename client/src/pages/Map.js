@@ -7,6 +7,7 @@ import CreatePin from "../components/Pins/CreatePin";
 import PinDetails from "../components/Pins/PinDetails";
 import Info from "../components/Layout/Info";
 import { Container } from "react-bootstrap";
+import { BASE_URL } from "../helper/helper";
 
 const Map = () => {
   const [pins, setPins] = useState([]);
@@ -16,7 +17,7 @@ const Map = () => {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const res = await axios.get("/getAllPins");
+        const res = await axios.get(`${BASE_URL}/getAllPins`);
         setPins(res.data.pins);
       } catch (error) {
         console.log(error);

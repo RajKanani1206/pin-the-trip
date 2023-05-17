@@ -5,12 +5,14 @@ import "./style.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import DotLoader from "react-spinners/DotLoader";
+import { BASE_URL } from "../../helper/helper";
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
 });
 
 const ForgotPasswordForm = () => {
+  console.log("BASE_URL", BASE_URL);
   const [loading, setLoading] = useState(false);
   return (
     <Formik
@@ -21,7 +23,7 @@ const ForgotPasswordForm = () => {
       onSubmit={async (values, { resetForm }) => {
         try {
           setLoading(true);
-          const res = await axios.post("/forgotPassword", values);
+          const res = await axios.post(`${BASE_URL}/forgotPassword`, values);
           if (res.data.success) {
             resetForm({ values: "" });
             setLoading(false);

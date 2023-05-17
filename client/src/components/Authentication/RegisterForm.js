@@ -7,6 +7,7 @@ import "./style.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import DotLoader from "react-spinners/DotLoader";
+import { BASE_URL } from "../../helper/helper";
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().min(2, "Too Short!").max(20, "Too Long!").required("Username is Required"),
@@ -34,7 +35,7 @@ const RegisterForm = () => {
         const input = omit(values, ["confirmPassword"]);
         try {
           setLoading(true);
-          const res = await axios.post("/register", input);
+          const res = await axios.post(`${BASE_URL}/register`, input);
           if (res.data.success) {
             resetForm({ values: "" });
             setLoading(false);

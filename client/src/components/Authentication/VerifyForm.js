@@ -4,6 +4,7 @@ import PinInput from "react-pin-input";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import DotLoader from "react-spinners/DotLoader";
+import { BASE_URL } from "../../helper/helper";
 
 const VerifyForm = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const VerifyForm = () => {
     };
     try {
       setLoading(true);
-      const res = await axios.post(`/verifyEmail?userId=${userId}`, data);
+      const res = await axios.post(`${BASE_URL}/verifyEmail?userId=${userId}`, data);
       if (res.data.success) {
         setLoading(false);
         toast.success("User Registered successfully");

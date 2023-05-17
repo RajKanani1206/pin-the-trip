@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import DotLoader from "react-spinners/DotLoader";
+import { BASE_URL } from "../../helper/helper";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid Email").required("Email is Required"),
@@ -28,7 +29,7 @@ const LoginForm = () => {
       onSubmit={async (values) => {
         try {
           setLoading(true);
-          const res = await axios.post("/login", values);
+          const res = await axios.post(`${BASE_URL}/login`, values);
           if (res.data.success) {
             setUser(res.data.user);
             setLoading(false);
